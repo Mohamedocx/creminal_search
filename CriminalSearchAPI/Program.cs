@@ -42,7 +42,7 @@ builder.Services.AddAuthorization(options =>
 
 // ✅ إضافة قاعدة البيانات SQLite
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // ✅ تفعيل CORS للسماح لـ React بالتواصل مع API
 builder.Services.AddCors(options =>

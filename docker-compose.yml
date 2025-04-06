@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  criminal-api:
+    build:
+      context: .
+      dockerfile: CriminalSearchAPI/Dockerfile
+    ports:
+      - '5001:80'
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=CriminalDb;User=sa;Password=YourStrong!Passw0rd;Encrypt=False;TrustServerCertificate=True;
+    depends_on:
+      - sqlserver
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - '1433:1433'
+    environment:
+      SA_PASSWORD: 'YourStrong!Passw0rd'
+      ACCEPT_EULA: 'Y'
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+
+volumes:
+  sqlserverdata:
