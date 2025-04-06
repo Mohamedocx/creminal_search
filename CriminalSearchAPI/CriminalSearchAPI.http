@@ -1,0 +1,6 @@
+@CriminalSearchAPI_HostAddress = http://localhost:5070
+
+GET {{CriminalSearchAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

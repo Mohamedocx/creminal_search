@@ -1,0 +1,87 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const SearchCriminals = () => {
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = async () => {
+    if (!query.trim()) {
+      alert("⚠️ يرجى إدخال اسم المجرم أو رقم البلاغ قبل البحث.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5070/api/criminals/search?query=${query}`);
+
+      if (!response.ok) {
+        throw new Error("لم يتم العثور على أي نتائج.");
+      }
+
+      const data = await response.json();
+
+      if (data.length === 0) {
+        alert("❌ لم يتم العثور على أي مجرمين بهذه البيانات.");
+        return;
+      }
+
+      navigate("/search-results", { state: { searchTerm: query } });
+
+    } catch (error) {
+      alert(`❌ خطأ: ${error.message}`);
+      console.error("❌ خطأ في البحث:", error);
+    }
+  };
+
+  const handleManageCriminals = () => {
+    navigate("/manage");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      {/* ✅ شريط علوي يحتوي على زر تسجيل الخروج وإدارة البيانات */}
+      <header className="w-full fixed top-0 left-0 bg-white shadow-md p-4 flex justify-between items-center z-50">
+        <button 
+          onClick={handleManageCriminals} 
+          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition"
+        >
+          📂 إدارة بيانات المجرم
+        </button>
+        <button 
+          onClick={handleLogout} 
+          className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition"
+        >
+          🚪 تسجيل الخروج
+        </button>
+      </header>
+
+      <h1 className="text-4xl font-bold text-gray-800 mb-6">
+        🔍 البحث عن مجرمين
+      </h1>
+
+      {/* ✅ مربع البحث الرئيسي */}
+      <div className="w-full max-w-2xl bg-white shadow-md rounded-full flex items-center px-4 py-2">
+        <input
+          type="text"
+          placeholder="أدخل اسم المجرم أو رقم البلاغ..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="w-full outline-none px-4 py-2 text-lg bg-transparent"
+        />
+        <button
+          onClick={handleSearch}
+          className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600"
+        >
+          🔍 بحث
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default SearchCriminals;

@@ -1,0 +1,20 @@
+{
+  "Version": 1,
+  "Hash": "Jh4OxV73rI0Rm7/BZ3SA6pkuQGdyxzGhVCx+PRtIZI8=",
+  "Source": "CriminalSearchAPI",
+  "BasePath": "_content/CriminalSearchAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "CriminalSearchAPI\\wwwroot",
+      "Source": "CriminalSearchAPI",
+      "ContentRoot": "C:\\Users\\Lenovo\\Desktop\\crea\\CriminalSearchAPI\\wwwroot\\",
+      "BasePath": "_content/CriminalSearchAPI",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [],
+  "Endpoints": []
+}
