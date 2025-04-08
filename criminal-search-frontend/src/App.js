@@ -1,21 +1,59 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import SearchCriminals from "./pages/SearchCriminals";
-import SearchResults from "./pages/SearchResults";
-import ManageCriminals from "./pages/ManageCriminals";
-import CriminalDetails from "./pages/CriminalDetails";
-import CriminalAnalytics from "./pages/CriminalAnalytics"; 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import SearchCriminals from './pages/SearchCriminals';
+import SearchResults from './pages/SearchResults';
+import ManageCriminals from './pages/ManageCriminals';
+import CriminalDetails from './pages/CriminalDetails';
+import CriminalAnalytics from './pages/CriminalAnalytics';
+import PrivateRoute from './router/PrivateRoute';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/search" element={<SearchCriminals />} />
-        <Route path="/search-results" element={<SearchResults />} />
-        <Route path="/manage" element={<ManageCriminals />} />
-        <Route path="/criminal/:id" element={<CriminalDetails />} />
-        <Route path="/analytics" element={<CriminalAnalytics />} /> 
+
+        {/* Protected Routes */}
+        <Route
+          path="/search"
+          element={
+            <PrivateRoute>
+              <SearchCriminals />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/search-results"
+          element={
+            <PrivateRoute>
+              <SearchResults />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/manage"
+          element={
+            <PrivateRoute>
+              <ManageCriminals />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/criminal/:id"
+          element={
+            <PrivateRoute>
+              <CriminalDetails />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/analytics"
+          element={
+            <PrivateRoute>
+              <CriminalAnalytics />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Router>
   );
