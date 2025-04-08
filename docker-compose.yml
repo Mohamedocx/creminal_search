@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: CriminalSearchAPI/Dockerfile
     ports:
-      - '5001:80'
+      - '5070:80'
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
